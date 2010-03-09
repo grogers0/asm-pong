@@ -1,0 +1,1 @@
+the executable created is "pong.com". In order to use "make_pong.bat" (which assembles and links the object files to create the exectuable) you need to unzip the 16bitx86.zip into the C:\ directory, or alternatively, change the directories added to the PATH environment variable inside of make_pong.bat

@@ -1,0 +1,11 @@
+;ball.mac - GRR - 11/23/06
+;macros for the ball size, etc.
+
+%ifndef BALL_MAC
+%define BALL_MAC
+
+
+%define BALL_RADIUS 3
+
+
+%endif

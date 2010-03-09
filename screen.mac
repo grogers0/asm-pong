@@ -1,0 +1,108 @@
+;screen.mac - GRR - 11/20/06
+;	macros to help with screen printing
+
+%ifndef SCREEN_MAC
+%define SCREEN_MAC
+
+;-- PutChar char, x,y
+;	macro to print a character to the screen location in pixels (x,y)
+%macro PutChar 3
+	push word %3
+	push word %2
+	push word %1
+	extern _write_char
+	call _write_char
+	add sp,6
+%endmacro
+
+
+;-- DrawBlock x1,y1, x2,y2
+;	macro to draw the filled in rectangle with corners (x1,y1) (x2,y2)
+%macro DrawBlock 4
+	push word %4
+	push word %3
+	push word %2
+	push word %1
+	extern _block
+	call _block
+	add sp,8
+%endmacro	;end macro DrawBlock
+
+
+;-- ClearImage segment, image
+;	uses the _Composite function to clear the data in the segment:image
+;	uses relative segments
+%macro ClearImage 2
+	push word %2
+	push word %1
+	push word %2
+	push word %1
+	extern _Composite
+	call _Composite
+	add sp,8
+%endmacro	;end macro ClearImage
+
+
+;-- DrawE ellipse_function, x0, y0, a, b
+;	ellipse_functionis the name of the ellipse function to use
+;	(x0,y0) is the ellipses center
+;	a,b are the radii of the ellipse in the x and y directions
+;	segment must be already set to es upon entry
+%macro DrawE 5
+extern %1
+	push ax
+	push bx
+	push cx
+	push dx
+	push bp
+
+	push word %5
+	push word %4
+	push word %3
+	push word %2
+	mov bp,sp
+
+	mov bx,[bp+2]
+	mov dx,bx
+	add bx,[bp+6]
+	sub dx,[bp+6]
+	;mov bx,199					;bx counts y pixel
+%%loopy:
+
+	mov ax,[bp]
+	mov cx,ax
+	add ax,[bp+4]
+	sub cx,[bp+4]
+	;mov ax,639					;ax counts x pixel
+%%loopx:
+
+	push bx						;y
+	push ax						;x
+	push word [bp+2]			;y0
+	push word [bp]				;x0
+	push word [bp+6]			;b
+	push word [bp+4]			;a
+	call %1						;pass in the ellipse function you want first
+	add sp,12
+
+	dec ax
+	cmp ax,cx
+	jge %%loopx					;if x >= 0 keep looping x
+
+	dec bx
+	cmp bx,dx
+	jge %%loopy					;if y >= 0 keep looping y
+
+	add sp,8
+
+	pop bp
+	pop dx
+	pop cx
+	pop bx
+	pop ax
+
+%endmacro	;end macro DrawE
+
+
+
+%endif

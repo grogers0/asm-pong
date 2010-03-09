@@ -1,0 +1,9 @@
+;sound.mac - GRR - 11/20/06
+;	macros to help with making sounds
+
+;ID's to select sounds
+
+
+%define SOUND_WINROUND 0
+%define SOUND_PADDLEHIT 1
+%define SOUND_WALLHIT 2

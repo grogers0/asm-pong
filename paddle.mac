@@ -1,0 +1,11 @@
+;paddle.mac - GRR - 11/20/06
+;this include file defines some paddle information
+
+%ifndef PADDLE_MAC
+%define PADDLE_MAC
+
+%define PADDLE_HEIGHT 20
+%define PADDLE_WIDTH 5
+
+
+%endif

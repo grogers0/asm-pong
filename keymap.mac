@@ -1,0 +1,25 @@
+;keymap.mac - GRR - 11/1/06
+;this include file defines the key_status mask bits and scan codes
+
+%ifndef KEYMAP_MAC
+%define KEYMAP_MAC
+
+%define KEY_A 0x01
+%define KEY_N 0x02
+%define KEY_Z 0x04
+%define KEY_ESC 0x08
+%define KEY_ENTER 0x10
+%define KEY_RIGHTSHIFT 0x20
+%define KEY_SPACEBAR 0x40
+
+
+%define SCAN_A 0x1e
+%define SCAN_N 0x31
+%define SCAN_Z 0x2c
+%define SCAN_ESC 0x01
+%define SCAN_ENTER 0x1c
+%define SCAN_RIGHTSHIFT 0x36
+%define SCAN_SPACEBAR 0x39
+
+
+%endif
